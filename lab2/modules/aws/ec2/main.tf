@@ -5,4 +5,13 @@ resource "aws_instance" "ecitu" {
   tags = {
     Name = "ExampleAppServerInstance"
   }
+  user_data = <<-EOT
+              #!/bin/bash
+              yum update -y
+              yum install -y nginx
+
+              # Start Nginx and enable it to start on system boot
+              systemctl start nginx
+              systemctl enable nginx
+              EOT
 }
